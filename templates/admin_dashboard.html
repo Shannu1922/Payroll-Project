@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3 class="sidebar-title">Admin Panel</h3>
+            <nav>
+                <ul>
+                    <li><a href="/view_employees" aria-label="View Employees">View Employees</a></li>
+                    <li><a href="/manage_payroll" aria-label="Manage Payroll">Manage Payroll</a></li>
+                    <li><a href="/manage_leaves" aria-label="Manage Leaves">Manage Leaves</a></li>
+                    <li><a href="/logout" aria-label="Logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>Welcome, Admin!</h1>
+            </header>
+            <div class="card-container-admin">
+                <div class="card">
+                    <h2>Employee Management</h2>
+                    <p>Manage all employee details and records.</p>
+                    <a href="/view_employees" class="btn">View Employees</a>
+                </div>
+                <div class="card">
+                    <h2>Payroll</h2>
+                    <p>View and manage employee payroll details.</p>
+                    <a href="/manage_payroll" class="btn">Manage Payroll</a>
+                </div>
+                <div class="card">
+                    <h2>Leave Requests</h2>
+                    <p>Review and approve leave requests.</p>
+                    <a href="/manage_leaves" class="btn">Manage Leaves</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

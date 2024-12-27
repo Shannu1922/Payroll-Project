@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Fullscreen background */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #007bff, #00c6ff);  /* Fullscreen gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;  /* Ensures full screen height */
+            margin: 0;
+        }
+
+        .dashboard-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;  /* Full width */
+            height: 100%; /* Full height */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar {
+            background: rgba(0, 0, 0, 0.1);  /* Slight overlay to darken the background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 30%; /* Set width of sidebar */
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 70%; /* Set width of the main content */
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+
+        .sidebar-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #0056b3;
+        }
+
+        header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .main-content h1 {
+            font-size: 26px;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .submit-btn {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .cancel-btn {
+            padding: 12px 20px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cancel-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .main-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3 class="sidebar-title">Employee Panel</h3>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('employee_dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('leave_request') }}">Request Leave</a></li>
+                    <li><a href="{{ url_for('payroll') }}">View Payroll</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>Create Leave Request</h1>
+            </header>
+            <section class="leave-request-form">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="emp_id">Employee ID:</label>
+                        <input type="number" name="emp_id" id="emp_id" required placeholder="Enter your employee ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="start_date">Start Date:</label>
+                        <input type="date" name="start_date" id="start_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="end_date">End Date:</label>
+                        <input type="date" name="end_date" id="end_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="leave_type">Leave Type:</label>
+                        <select name="leave_type" id="leave_type" required>
+                            <option value="">Select leave type</option>
+                            <option value="Sick">Sick</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Earned">Earned</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Submit Request</button>
+                        <button type="reset" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

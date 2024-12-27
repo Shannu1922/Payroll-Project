@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Leaves</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3 class="sidebar-title">Admin Panel</h3>
+            <nav>
+                <ul>
+                    <li><a href="/admin_dashboard" aria-label="Dashboard">Dashboard</a></li>
+                    <li><a href="/view_employees" aria-label="View Employees">View Employees</a></li>
+                    <li><a href="/manage_payroll" aria-label="Manage Payroll">Manage Payroll</a></li>
+                    <li><a href="/manage_leaves" aria-label="Manage Leaves">Manage Leaves</a></li>
+                    <li><a href="/logout" aria-label="Logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>Leave Requests</h1>
+            </header>
+            <div class="content-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Leave ID</th>
+                            <th>Employee Name</th>
+                            <th>Leave Type</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for leave in leave_requests %}
+                            <tr>
+                                <td>{{ leave.leave_id }}</td>
+                                <td>{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
+                                <td>{{ leave.leave_type }}</td>
+                                <td>{{ leave.start_date }}</td>
+                                <td>{{ leave.end_date }}</td>
+                                <td>{{ leave.status }}</td>
+                                <td>
+                                    <form method="POST" action="{{ url_for('manage_leaves') }}">
+                                        <input type="hidden" name="leave_id" value="{{ leave.leave_id }}">
+                                        <button type="submit" name="action" value="approve" class="btn">Approve</button>
+                                        <button type="submit" name="action" value="reject" class="btn">Reject</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

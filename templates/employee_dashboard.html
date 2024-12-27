@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3 class="sidebar-title">Employee Panel</h3>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('leave_request') }}" aria-label="Request Leave">Request Leave</a></li>
+                    <li><a href="{{ url_for('payroll') }}" aria-label="View Payroll">View Payroll</a></li>
+                    <li><a href="{{ url_for('logout') }}" aria-label="Logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>Welcome, Employee!</h1>
+            </header>
+            <div class="card-container-employee">
+                <div class="card">
+                    <h2>Request Leave</h2>
+                    <p>Submit your leave requests for approval.</p>
+                    <a href="{{ url_for('leave_request') }}" class="btn">Request Leave</a>
+                </div>
+                <div class="card">
+                    <h2>View Payroll</h2>
+                    <p>Access and view your payroll details.</p>
+                    <a href="{{ url_for('payroll') }}" class="btn">View Payroll</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

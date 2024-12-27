@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Payroll</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3 class="sidebar-title">Admin Panel</h3>
+            <nav>
+                <ul>
+                    <li><a href="/admin_dashboard" aria-label="Dashboard">Dashboard</a></li>
+                    <li><a href="/view_employees" aria-label="View Employees">View Employees</a></li>
+                    <li><a href="/manage_payroll" aria-label="Manage Payroll">Manage Payroll</a></li>
+                    <li><a href="/manage_leaves" aria-label="Manage Leaves">Manage Leaves</a></li>
+                    <li><a href="/logout" aria-label="Logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>Employee Payroll Management</h1>
+            </header>
+            <section class="payroll-management">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Payroll ID</th>
+                            <th>Employee Name</th>
+                            <th>Basic Salary</th>
+                            <th>Bonuses</th>
+                            <th>Deductions</th>
+                            <th>Net Salary</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payroll in payroll_data %}
+                            <tr>
+                                <td>{{ payroll.payroll_id }}</td>
+                                <td>{{ payroll.employee.first_name }} {{ payroll.employee.last_name }}</td>
+                                <td>{{ payroll.basic_salary }}</td>
+                                <td>{{ payroll.bonuses }}</td>
+                                <td>{{ payroll.deductions }}</td>
+                                <td>{{ payroll.net_salary }}</td>
+                                <td>
+                                    <form method="POST" action="{{ url_for('manage_payroll') }}">
+                                        <input type="hidden" name="payroll_id" value="{{ payroll.payroll_id }}">
+                                        <button type="submit" name="action" value="edit" class="btn">Edit</button>
+                                        <button type="submit" name="action" value="delete" class="btn">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

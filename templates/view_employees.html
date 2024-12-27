@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3 class="sidebar-title">Admin Panel</h3>
+            <nav>
+                <ul>
+                    <li><a href="/admin_dashboard" aria-label="Dashboard">Dashboard</a></li>
+                    <li><a href="/view_employees" aria-label="View Employees">View Employees</a></li>
+                    <li><a href="/manage_payroll" aria-label="Manage Payroll">Manage Payroll</a></li>
+                    <li><a href="/manage_leaves" aria-label="Manage Leaves">Manage Leaves</a></li>
+                    <li><a href="/logout" aria-label="Logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1 color=white>Employee List</h1>
+            </header>
+            <section class="employee-list">
+                <h2>Employee Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employee in employees %}
+                            <tr>
+                                <td>{{ employee.id }}</td>
+                                <td>{{ employee.first_name }}</td>
+                                <td>{{ employee.last_name }}</td>
+                                <td>{{ employee.email }}</td>
+                                <td>{{ employee.phone }}</td>
+                                <td>{{ employee.position }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

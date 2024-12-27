@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Fullscreen background */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #007bff, #00c6ff);  /* Fullscreen gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;  /* Ensures full screen height */
+            margin: 0;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;  /* Full width */
+            height: 100%; /* Full height */
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.1);  /* Slight overlay to darken the background */
+            box-sizing: border-box;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 480px;  /* Maximum width of the login form */
+            box-sizing: border-box;
+        }
+
+        .login-card h2 {
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #0056b3;
+        }
+
+        /* For larger screens */
+        @media (min-width: 1024px) {
+            .login-container {
+                padding: 40px;
+            }
+
+            .login-card {
+                width: 40%; /* Set to 40% for large screens */
+                min-width: 300px;
+            }
+        }
+
+        /* For smaller screens (mobile) */
+        @media (max-width: 767px) {
+            .login-card {
+                width: 90%;  /* Take up more space on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Login to Your Account</h2>
+            <form action="/login" method="POST">
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Username or Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="input-group">
+                    <label for="user-type">Select User Type:</label>
+                    <select name="user_type" id="user-type" required>
+                        <option value="admin">Admin</option>
+                        <option value="employee">Employee</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="footer">
+                    <p>Don't have an account? <a href="#">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

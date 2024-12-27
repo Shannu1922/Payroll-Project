@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3 class="sidebar-title">Employee Panel</h3>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('employee_dashboard') }}" aria-label="Dashboard">Dashboard</a></li>
+                    <li><a href="{{ url_for('leave_request') }}" aria-label="Request Leave">Request Leave</a></li>
+                    <li><a href="{{ url_for('payroll') }}" aria-label="View Payroll">View Payroll</a></li>
+                    <li><a href="{{ url_for('logout') }}" aria-label="Logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>Employee Payroll</h1>
+            </header>
+            <section class="payroll-details">
+                <h2>Your Payroll</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Emp ID</th>
+                            <th>Basic Salary</th>
+                            <th>Bonuses</th>
+                            <th>Deductions</th>
+                            <th>Net Salary</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payroll in payroll_data %}
+                            <tr>
+                                <td>{{ payroll.employee_id }}</td>
+                                <td>{{ payroll.basic_salary }}</td>
+                                <td>{{ payroll.bonuses }}</td>
+                                <td>{{ payroll.deductions }}</td>
+                                <td>{{ payroll.net_salary }}</td>
+                                <td><a href="{{ url_for('download_payslip', payroll_id=payroll.payroll_id) }}" class="btn">Download</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
