@@ -1,15 +1,32 @@
+import os
+import secrets
+
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 
+# Load environment variables from a .env file if present (see .env.example).
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 # Initialize the Flask application
 app = Flask(__name__)
 
-
-# Configure the MySQL database connection
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Sh%40nnu1922@localhost/payroll'
+# Configure the MySQL database connection.
+# Set DATABASE_URL in the environment (or .env), e.g.
+#   mysql+pymysql://user:password@localhost/payroll
+# The default below carries NO password so no secret is ever committed.
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'mysql+pymysql://root@localhost/payroll'
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = '1922'  # Change this to a strong secret key
+
+# Session signing key: read from the environment, else generate a secure random
+# key at startup. Set a fixed SECRET_KEY in production so sessions survive restarts.
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or secrets.token_hex(32)
 
 # Initialize the database connection
 db = SQLAlchemy(app)
