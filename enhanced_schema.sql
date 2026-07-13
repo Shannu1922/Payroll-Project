@@ -152,7 +152,7 @@ VALUES
 
 INSERT INTO admin( username,password)
 VALUES
-('Shannu','Shannu1922');
+('admin','changeme');
 
 
 SELECT * FROM Employee;

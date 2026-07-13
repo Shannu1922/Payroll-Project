@@ -116,7 +116,7 @@ Payroll-Project/
    The app starts on Flask's default dev server at <http://127.0.0.1:5000>.
 
 **Sample logins** (from the seed data in `enhanced_schema.sql`):
-- **Admin** — username `Shannu`, password `Shannu1922`
+- **Admin** — username `admin`, password `changeme`
 - **Employee** — username = an employee email (e.g. `jane.smith@example.com`),
   password = that employee's phone number.
 
